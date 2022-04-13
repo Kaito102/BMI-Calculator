@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator</title>
+    <style>
+        h3 {
+            display: inline-block;
+        }
+        
+        #result {
+            display: inline-block;
+            width: 200px;
+            height: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>BMI Calculator</h1>
+
+    <div>
+        <h3>Result :</h3>
+        <span id="result"></span>
+        <button onclick="storeData()">Store Data</button>
+        <button onclick="clearData()">Clear</button>
+    </div>
+
+    <div class="mkg">
+        <input type="number" id="weightkg" placeholder="Weight(kg)">
+        <input type="number" id="heightm" placeholder="Height(m)">
+        <button onclick="calcBmiKgm()">Calculate</button>
+
+    </div>
+    <br>
+    <br>
+    <div class="lbin">
+        <input type="number" id="weightlb" placeholder="Weight(lb)">
+        <input type="number" id="heightinch" placeholder="Height(in)">
+        <button onclick="calcBmiLbin()">Calculate</button>
+    </div>
+    <br>
+    <h4>You can check your BMI here.</h4>
+    <ul>
+        <li>
+            <h4>16.0 - 18.4 (kg/sq m)= underweight</h4>
+        </li>
+        <li>
+            <h4>18.5 - 24.9 (kg/sq m)= normal</h4>
+        </li>
+        <li>
+            <h4>25.0 - 40.0 (kg/sq m)= overweight</h4>
+        </li>
+    </ul>
+    <br>
+    <h4>Here are your data storage</h4>
+    <ul id="storeData">
+
+    </ul>
+
+
+    <script>
+        let weightkg = document.getElementById("weightkg");
+        let heightm = document.getElementById("heightm");
+        let weightlb = document.getElementById("weightlb");
+        let heightinch = document.getElementById("heightinch");
+        let resultBmi = document.getElementById("result");
+        let dataStore = document.getElementById("storeData");
+
+        function calcBmiKgm() {
+            if (weightkg.value == 0 || heightm.value == 0) {
+                alert("Please fill the necesary fields")
+            } else {
+                let result = weightkg.value / (heightm.value ** 2);
+                resultBmi.innerHTML = `${weightkg.value}kg / ${heightm.value ** 2} m<sup>2</sup> = ${result} kgm<sup>2</sup>`;
+                weightkg.value = "";
+                heightm.value = "";
+
+            }
+        }
+
+        function calcBmiLbin() {
+            if (weightlb.value == 0 || heightinch.value == 0) {
+                alert("Please fill the necesary fields");
+            } else {
+                let resultWeightkg = weightlb.value / 2.2;
+                let resultHeightinch = heightinch.value / 39.37;
+                let result = resultWeightkg / (resultHeightinch ** 2);
+                resultBmi.innerHTML = `${weightlb.value} lb / ${heightinch.value ** 2}in<sup>2</sup> = ${result} kgm<sup>2</sup>`;
+                weightlb.value = "";
+                heightinch.value = "";
+
+            }
+        }
+
+        function clearData() {
+            resultBmi.innerHTML = "";
+        }
+
+
+        function storeData() {
+            if (resultBmi.innerHTML == "") {
+                alert("There is no result to store.")
+            } else {
+                dataStore.innerHTML += `<li>${resultBmi.innerHTML}</li>`;
+                clearData();
+
+            }
+
+        }
+    </script>
+</body>
+
+</html>
